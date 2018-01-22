@@ -1,9 +1,11 @@
 package com.natanael.pokedex;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
 
 import com.natanael.pokedex.fragment.PokemonListFragment;
 
@@ -17,6 +19,8 @@ public class MainFragmentHolder extends AppCompatActivity {
     private static MainFragmentHolder instance;
     private static FragmentManager fragmentManager;
 
+    private Snackbar snackbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,11 +29,31 @@ public class MainFragmentHolder extends AppCompatActivity {
         instance = this;
         fragmentManager = getSupportFragmentManager();
 
+        FrameLayout layout = findViewById(R.id.fragment_container);
+
+        snackbar = Snackbar.make(layout, "", Snackbar.LENGTH_SHORT);
+
         showScreen(MAIN_LIST_SCREEN);
     }
 
-    public MainFragmentHolder getInstance() {
+    public static MainFragmentHolder getInstance() {
         return instance;
+    }
+
+    public void showMessage(String message, int duration) {
+        if (snackbar != null) {
+            snackbar.setText(message);
+            snackbar.setDuration(duration);
+            snackbar.show();
+        }
+    }
+
+    public void showMessage(int messageId, int duration) {
+        if (snackbar != null) {
+            snackbar.setText(messageId);
+            snackbar.setDuration(duration);
+            snackbar.show();
+        }
     }
 
     public static void showScreen(int fragmentId) {

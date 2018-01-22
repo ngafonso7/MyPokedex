@@ -1,7 +1,6 @@
 package com.natanael.pokedex.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,14 +82,15 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
             if (!"".equals(pokemonImageUrl)) {
                 Picasso.with(context)
                         .load(pokemonImageUrl)
-                        .placeholder(R.drawable.loading_rolling_pokeball)
+                        .placeholder(R.drawable.loading_pokeball_08)
                         .into(pokemonImageView);
             } else {
-                pokemonImageView.setBackgroundResource(R.drawable.loading_rolling_pokeball);
-                AnimationDrawable animation = (AnimationDrawable) pokemonImageView.getBackground();
-                animation.start();
+                pokemonImageView.setImageResource(R.drawable.loading_pokeball_08);
             }
 
+            if (!"".equals(pokemonName)) {
+                pokemonName = pokemonName.substring(0,1).toUpperCase() + pokemonName.substring(1);
+            }
             pokemonNameTextView.setText(pokemonName);
         }
 

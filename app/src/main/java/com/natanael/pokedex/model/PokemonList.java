@@ -39,6 +39,7 @@ public class PokemonList {
     }
 
     public void setPokemonDetailsAtIndex(Pokemon details, int index ) {
+        details.setLoaded(true);
         pokemonDetailsList.set(index, details);
     }
 

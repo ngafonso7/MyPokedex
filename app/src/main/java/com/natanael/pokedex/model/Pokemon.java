@@ -17,9 +17,11 @@ public class Pokemon {
     private List<Move> moves;
     private List<Type> types;
     private Sprite sprites;
+    private boolean isLoaded;
 
     public Pokemon(String name) {
         this.name = name;
+        this.isLoaded = false;
     }
 
     public int getId() {
@@ -52,6 +54,14 @@ public class Pokemon {
 
     public List<Type> getTypes() {
         return types;
+    }
+
+    public boolean isLoaded() {
+        return isLoaded;
+    }
+
+    public void setLoaded(boolean loaded) {
+        this.isLoaded = loaded;
     }
 
     public String getImage() {

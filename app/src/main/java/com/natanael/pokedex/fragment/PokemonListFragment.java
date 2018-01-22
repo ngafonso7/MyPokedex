@@ -2,6 +2,8 @@ package com.natanael.pokedex.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.natanael.pokedex.MainFragmentHolder;
 import com.natanael.pokedex.R;
 import com.natanael.pokedex.adapter.PokemonListAdapter;
 import com.natanael.pokedex.model.LoadPokemonDetailsCallback;
@@ -32,7 +35,6 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
 
     private Context context;
 
-
     private int loadingPage = 1;
 
     public PokemonListFragment() {
@@ -42,19 +44,28 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        context = getContext();
+        context = getActivity().getApplicationContext();
         pokemonListAdapter = new PokemonListAdapter(this);
 
         View rootView = inflater.inflate(R.layout.fragment_pokemon_list, container, false);
+
+        ConstraintLayout rootLayout = rootView.findViewById(R.id.pokemon_list_root_layout);
 
         RecyclerView pokemonListView = rootView.findViewById(R.id.pokemonList);
         pokemonListView.setLayoutManager(getLayoutManager());
         pokemonListView.setAdapter(pokemonListAdapter);
 
-        NetworkUtils.getInstance().getPokemonList(loadingPage, this);
+        if (NetworkUtils.isInternetConnected(context)) {
 
-        pbLoading = rootView.findViewById(R.id.pb_loading);
-        pbLoading.setVisibility(View.VISIBLE);
+            NetworkUtils.getInstance().getPokemonList(loadingPage, this);
+
+            pbLoading = rootView.findViewById(R.id.pb_loading);
+            pbLoading.setVisibility(View.VISIBLE);
+        } else {
+            showMessage(R.string.no_internet_connection_error_message,Snackbar.LENGTH_INDEFINITE);
+        }
+
+
 
         return rootView;
 
@@ -72,13 +83,15 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
     @Override
     public void notifyPokemonDetailsRefreshFailure() {
         pbLoading.setVisibility(View.INVISIBLE);
-        //showMessage(R.string.refresh_pokemon_details_error,Snackbar.LENGTH_LONG);
+        showMessage(R.string.refresh_pokemon_details_error,Snackbar.LENGTH_LONG);
 
     }
 
     @Override
     public void onListItemClick(Pokemon clickedPokemon) {
-
+        if(clickedPokemon.isLoaded()) {
+            //Open details screen
+        }
     }
 
     @Override
@@ -103,7 +116,7 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
     @Override
     public void notifyPokemonUrlListRefreshFailure() {
         pbLoading.setVisibility(View.INVISIBLE);
-        //showMessage(R.string.refresh_pokemon_details_error,Snackbar.LENGTH_LONG);
+        showMessage(R.string.refresh_pokemon_details_error,Snackbar.LENGTH_LONG);
     }
 
     private GridLayoutManager getLayoutManager(){
@@ -119,21 +132,13 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
         return (int) (dpWidth / scalingFactor);
     }
 
-    /*private void showMessage(String message, int duration) {
-        if (snackbar != null) {
-            snackbar.setText(message);
-            snackbar.setDuration(duration);
-            snackbar.show();
-        }
+    private void showMessage(String message, int duration) {
+        MainFragmentHolder.getInstance().showMessage(message, duration);
     }
 
     private void showMessage(int messageId, int duration) {
-        if (snackbar != null) {
-            snackbar.setText(messageId);
-            snackbar.setDuration(duration);
-            snackbar.show();
-        }
-    }*/
+        MainFragmentHolder.getInstance().showMessage(messageId, duration);
+    }
 
 
 }
