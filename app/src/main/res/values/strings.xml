@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PokeDex</string>
+
+    <string name="dummy_pokemon_name">Loading...</string>
+
+    <string name="refresh_pokemon_details_error">Error while refreshing Pokemon list !</string>
+</resources>
