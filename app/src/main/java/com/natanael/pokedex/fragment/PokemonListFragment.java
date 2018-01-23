@@ -1,16 +1,18 @@
 package com.natanael.pokedex.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.natanael.pokedex.MainFragmentHolder;
@@ -22,6 +24,7 @@ import com.natanael.pokedex.model.Pokemon;
 import com.natanael.pokedex.model.PokemonList;
 import com.natanael.pokedex.model.PokemonUrl;
 import com.natanael.pokedex.model.PokemonUrlList;
+import com.natanael.pokedex.utils.EndlessRecyclerViewScrollListener;
 import com.natanael.pokedex.utils.NetworkUtils;
 import com.natanael.pokedex.utils.Utils;
 
@@ -34,6 +37,9 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
     private PokemonListAdapter pokemonListAdapter;
 
     private ProgressBar pbLoading;
+    private RecyclerView pokemonListView;
+    private SwipeRefreshLayout pokemonListSwipeRefresh;
+    private ImageView moreStatsImageView;
 
     private boolean isLoading = false;
 
@@ -60,13 +66,36 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
 
         View rootView = inflater.inflate(R.layout.fragment_pokemon_list, container, false);
 
-        ConstraintLayout rootLayout = rootView.findViewById(R.id.pokemon_list_root_layout);
-
-        RecyclerView pokemonListView = rootView.findViewById(R.id.pokemonList);
-        pokemonListView.setLayoutManager(getLayoutManager());
+        pokemonListView = rootView.findViewById(R.id.pokemonList);
+        GridLayoutManager gridLayoutManager = getLayoutManager();
+        pokemonListView.setLayoutManager(gridLayoutManager);
         pokemonListView.setAdapter(pokemonListAdapter);
+        pokemonListView.setOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadingPage = page;
+                updatePokemonList();
+            }
+        });
 
         pbLoading = rootView.findViewById(R.id.pb_loading);
+
+        pokemonListSwipeRefresh = rootView.findViewById(R.id.sr_pokemon_list_layout);
+        pokemonListSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updatePokemonList();
+            }
+        });
+
+        moreStatsImageView = rootView.findViewById(R.id.im_more_stats);
+        moreStatsImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainFragmentHolder.showScreen(MainFragmentHolder.MORE_STATS_SCREEN);
+            }
+        });
 
         if (pokemonListInstance.getPokemonDetailsList().size() == 0) {
             if (NetworkUtils.isInternetConnected(context)) {
@@ -74,6 +103,8 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
             } else {
                 showMessage(R.string.no_internet_connection_error_message, Snackbar.LENGTH_INDEFINITE);
             }
+        } else {
+            pokemonListView.setBackgroundColor(Color.WHITE);
         }
         return rootView;
 
@@ -82,9 +113,19 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
     public void updatePokemonList() {
         if (!isLoading) {
             isLoading = true;
+            pokemonListView.setBackgroundColor(Color.WHITE);
             pbLoading.setVisibility(View.VISIBLE);
+            pokemonListSwipeRefresh.setRefreshing(false);
             NetworkUtils.getInstance().getPokemonList(loadingPage, this);
         }
+    }
+
+    public void errorLoadingInformation() {
+        if (pokemonListInstance.getPokemonDetailsList().size() == 0) {
+            pokemonListView.setBackground(context.getDrawable(R.drawable.no_info_bg));
+        }
+        pbLoading.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
@@ -99,7 +140,7 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
     @Override
     public void notifyPokemonDetailsRefreshFailure() {
         isLoading = false;
-        pbLoading.setVisibility(View.INVISIBLE);
+        errorLoadingInformation();
         showMessage(R.string.refresh_pokemon_details_error,Snackbar.LENGTH_LONG);
 
     }
@@ -117,7 +158,6 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
     @Override
     public void onPokemonUrlListRefresh(PokemonUrlList pokemonUrlList) {
         isLoading = false;
-        int pokemonListIndex = 0;
         for (PokemonUrl pokemonUrl : pokemonUrlList.getDetailsUrls()) {
             int pokemonId = Utils.getPokemonIdFromUrl(pokemonUrl.getUrl());
             if (pokemonListInstance.getPokemonListIndex(pokemonId) == -1) {
@@ -126,20 +166,15 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
                 pokemonListInstance.addPokemonDetails(dummyPokemonEntry);
             }
             NetworkUtils.getInstance().getPokemonDetails(pokemonId,this);
-            pokemonListIndex++;
-            if (pokemonListIndex == 5) {
-                break;
-            }
         }
         pokemonListAdapter.notifyDataSetChanged();
         pbLoading.setVisibility(View.INVISIBLE);
-
     }
 
     @Override
     public void notifyPokemonUrlListRefreshFailure() {
         isLoading = false;
-        pbLoading.setVisibility(View.INVISIBLE);
+        errorLoadingInformation();
         showMessage(R.string.refresh_pokemon_details_error,Snackbar.LENGTH_LONG);
     }
 

@@ -14,11 +14,13 @@ public class PokemonList {
     private List<Pokemon> pokemonDetailsList;
     private int pokemonCount;
     private int selectedPokemonIndex = -1;
+    private List<Pokemon> pokemonCaughtList;
 
     private HashMap<Integer, Integer> mapPokemonIdtoListIndex = new HashMap<>();
 
     public PokemonList() {
         pokemonDetailsList = new ArrayList<>();
+        pokemonCaughtList = new ArrayList<>();
         pokemonCount = 0;
     }
 
@@ -55,6 +57,27 @@ public class PokemonList {
         return getInstance().pokemonDetailsList;
     }
 
+    public void setCaughtPokemon(Pokemon addPokemon) {
+        for (Pokemon pokemon : getInstance().pokemonCaughtList) {
+            if (pokemon.getId() == addPokemon.getId()) {
+                return;
+            }
+        }
+        getInstance().pokemonCaughtList.add((addPokemon));
+        BestPokemonList.getInstance().calculateBestPokemonList(pokemonCaughtList);
+    }
+
+    public void removeCaughtPokemon(int pokemonId) {
+        int index = 0;
+        for (Pokemon pokemon : pokemonCaughtList) {
+            if (pokemon.getId() == pokemonId) {
+                break;
+            }
+            index++;
+        }
+        getInstance().pokemonCaughtList.remove(index);
+    }
+
     public void setSelectedPokemon(int index) {
         selectedPokemonIndex = index;
     }
@@ -65,7 +88,6 @@ public class PokemonList {
 
     public int getPokemonCount() {
         return pokemonCount;
-
     }
 
 }

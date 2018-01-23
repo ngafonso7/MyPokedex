@@ -18,8 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/pokemonList"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sr_pokemon_list_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="82dp"
@@ -29,7 +29,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/pokemonList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/no_info_bg"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
     <ProgressBar
         android:id="@+id/pb_loading"
@@ -44,5 +53,15 @@
         android:indeterminate="true"
         android:indeterminateOnly="true"
         android:indeterminateDrawable="@drawable/loading_pokeball"/>
+
+    <ImageView
+        android:id="@+id/im_more_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/more_stats_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -169,18 +169,22 @@
         android:id="@+id/sv_pokemon_stats"
         android:layout_width="0dp"
         android:layout_height="65dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/dark_green_border"
-        android:layout_marginEnd="25dp"
+        android:fadeScrollbars="false"
+
         android:paddingEnd="2dp"
         android:paddingStart="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundImageView"
         app:layout_constraintStart_toStartOf="@+id/tv_label_pokemon_stats"
-        app:layout_constraintTop_toBottomOf="@+id/tv_label_pokemon_stats"
-        android:fadeScrollbars="false">
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_pokemon_stats">
+
         <TextView
             android:id="@+id/tv_pokemon_stats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
             tools:text="Strike..." />
     </ScrollView>
 
@@ -216,6 +220,8 @@
             android:id="@+id/tv_pokemon_abilities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
             tools:text="abilities..." />
     </ScrollView>
 
@@ -240,20 +246,33 @@
         android:id="@+id/sv_pokemon_moves"
         android:layout_width="0dp"
         android:layout_height="65dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/dark_green_border"
+        android:fadeScrollbars="false"
         android:paddingEnd="2dp"
         android:paddingStart="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/sv_pokemon_abilities"
+        app:layout_constraintEnd_toStartOf="@+id/im_pokemon_caught"
         app:layout_constraintStart_toStartOf="@+id/tv_label_pokemon_moves"
-        app:layout_constraintTop_toBottomOf="@+id/tv_label_pokemon_moves"
-        android:fadeScrollbars="false">
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_pokemon_moves">
+
         <TextView
             android:id="@+id/tv_pokemon_moves"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
             tools:text="moves..." />
     </ScrollView>
 
+    <ImageView
+        android:id="@+id/im_pokemon_caught"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_pokemon_moves"
+        app:srcCompat="@drawable/pokeball_open" />
 
 
 </android.support.constraint.ConstraintLayout>

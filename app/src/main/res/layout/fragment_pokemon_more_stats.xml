@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/im_more_stats_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/pokedex_details_page_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_label_best_pokemon_list"
+        android:layout_width="165dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="136dp"
+        android:textColor="@color/color_font_dark_green"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Best caught Pokemóns: " />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_best_pokemon_list"
+        android:layout_width="0dp"
+        android:layout_height="228dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_label_best_pokemon_list"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_best_pokemon_list"
+        android:background="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/tv_label_stats_sum"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/color_font_dark_green"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/rv_best_pokemon_list"
+        app:layout_constraintTop_toBottomOf="@+id/rv_best_pokemon_list"
+        tools:text="Stats Sum: " />
+
+    <TextView
+        android:id="@+id/tv_label_weight_sum"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/color_font_dark_green"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tv_label_stats_sum"
+        app:layout_constraintTop_toBottomOf="@+id/rv_best_pokemon_list"
+        tools:text="Weight Sum:" />
+
+    <ScrollView
+        android:layout_width="145dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_label_stats_sum"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_stats_sum"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tv_stats_sum_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:textColor="@color/color_font_dark_green"/>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_weight_sum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_label_weight_sum"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_weight_sum"
+        android:textColor="@color/color_font_dark_green"
+        android:textStyle="bold"
+        tools:text="90kg" />
+
+    <TextView
+        android:id="@+id/tv_label_baseexp_sum"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_weight_sum"
+        app:layout_constraintTop_toBottomOf="@+id/tv_weight_sum"
+        android:textColor="@color/color_font_dark_green"
+        android:textStyle="bold"
+        tools:text="Base Exp Sum:" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_label_baseexp_sum"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_baseexp_sum"
+        android:textColor="@color/color_font_dark_green"
+        android:textStyle="bold"
+        tools:text="1500" />
+</android.support.constraint.ConstraintLayout>

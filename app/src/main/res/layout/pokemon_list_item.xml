@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
@@ -17,6 +18,15 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/border_red"/>
+
+    <ImageView
+        android:id="@+id/im_pokemon_list_caught"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignBottom="@+id/im_pokemon_image"
+        android:layout_alignEnd="@+id/im_pokemon_image"
+        android:padding="5dp"
+        app:srcCompat="@drawable/loading_pokeball_08" />
 
     <TextView
         android:id="@+id/tv_pokemon_name"

@@ -63,6 +63,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
 
         final ImageView pokemonImageView;
         final TextView pokemonNameTextView;
+        final ImageView pokemonCaughtImageView;
 
 
         private PokemonViewHolder(View itemView) {
@@ -70,6 +71,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
 
             pokemonImageView = itemView.findViewById(R.id.im_pokemon_image);
             pokemonNameTextView = itemView.findViewById(R.id.tv_pokemon_name);
+            pokemonCaughtImageView = itemView.findViewById(R.id.im_pokemon_list_caught);
 
             itemView.setOnClickListener(this);
             context = itemView.getContext();
@@ -92,12 +94,20 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
                 pokemonName = pokemonName.substring(0,1).toUpperCase() + pokemonName.substring(1);
             }
             pokemonNameTextView.setText(pokemonName);
+
+            if (details.isCaught()) {
+                pokemonCaughtImageView.setVisibility(View.VISIBLE);
+            } else {
+                pokemonCaughtImageView.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override
         public void onClick(View view) {
             int clickedPosition = getAdapterPosition();
-            onClickListener.onListItemClick(pokemonListInstance.getPokemonDetailsList().get(clickedPosition));
+            if (clickedPosition >= 0) {
+                onClickListener.onListItemClick(pokemonListInstance.getPokemonDetailsList().get(clickedPosition));
+            }
         }
 
 

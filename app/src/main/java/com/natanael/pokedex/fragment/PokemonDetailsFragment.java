@@ -34,6 +34,25 @@ public class PokemonDetailsFragment extends Fragment {
         TextView pokemonAbilitiesTextView = rootView.findViewById(R.id.tv_pokemon_abilities);
         TextView pokemonMovesTextView = rootView.findViewById(R.id.tv_pokemon_moves);
 
+        ImageView pokemonCaughtImageView = rootView.findViewById(R.id.im_pokemon_caught);
+
+        pokemonCaughtImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Pokemon details = PokemonList.getInstance().getSelectedPokemon();
+                if (details.isCaught()) {
+                    details.setCaught(false);
+                    ((ImageView) view).setImageResource(R.drawable.pokeball_open);
+                    PokemonList.getInstance().removeCaughtPokemon(details.getId());
+                } else {
+                    details.setCaught(true);
+                    ((ImageView) view).setImageResource(R.drawable.pokeball_closed);
+                    PokemonList.getInstance().setCaughtPokemon(details);
+                }
+
+            }
+        });
+
         Pokemon details = PokemonList.getInstance().getSelectedPokemon();
 
         if (!"".equals(details.getImage())) {
@@ -51,6 +70,12 @@ public class PokemonDetailsFragment extends Fragment {
         pokemonStatsTextView.setText(details.getStats());
         pokemonAbilitiesTextView.setText(details.getAbilities());
         pokemonMovesTextView.setText(details.getMoves());
+
+        if (details.isCaught()) {
+            pokemonCaughtImageView.setImageResource(R.drawable.pokeball_closed);
+        } else {
+            pokemonCaughtImageView.setImageResource(R.drawable.pokeball_open);
+        }
 
         return rootView;
 

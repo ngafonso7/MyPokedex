@@ -18,10 +18,12 @@ public class Pokemon {
     private List<Type> types;
     private Sprite sprites;
     private boolean isLoaded;
+    private boolean isCaught;
 
     public Pokemon(String name) {
         this.name = name;
         this.isLoaded = false;
+        this.isCaught = false;
     }
 
     public int getId() {
@@ -95,6 +97,14 @@ public class Pokemon {
 
     public void setLoaded(boolean loaded) {
         this.isLoaded = loaded;
+    }
+
+    public boolean isCaught() {
+        return isCaught;
+    }
+
+    public void setCaught(boolean caught) {
+        this.isCaught = caught;
     }
 
     public String getImage() {

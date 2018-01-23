@@ -13,4 +13,5 @@
 
     <string name="refresh_pokemon_details_error">Error while refreshing Pokemon list !</string>
     <string name="no_internet_connection_error_message">Internet is not available !</string>
+    <string name="max_caught_pokemon">Max of 6 Pokemon caught already !</string>
 </resources>
