@@ -40,7 +40,7 @@ public class Pokemon {
         for (Stat s : stats) {
             String stat = s.getStatName().replace("-"," ");
             stat = stat.substring(0,1).toUpperCase() + stat.substring(1,stat.length());
-            res += stat + " - " + s.getBaseStat() +"\n";
+            res += stat + ": " + s.getBaseStat() +"\n";
         }
 
         return res;
@@ -59,7 +59,7 @@ public class Pokemon {
         if (abilities == null) return res;
         for (Ability a : abilities) {
             String ability = a.getAbilityName();
-            ability += ability.substring(0,1).toUpperCase() + ability.substring(1,ability.length());
+            ability = ability.substring(0,1).toUpperCase() + ability.substring(1,ability.length());
             res += ability + "\n";
         }
         return res;

@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
@@ -16,6 +17,9 @@ import com.natanael.pokedex.fragment.PokemonListFragment;
 import com.natanael.pokedex.receiver.InternetReceiver;
 
 public class MainFragmentHolder extends AppCompatActivity {
+
+    private static final int ENTER_LEFT = 1;
+    private static final int ENTER_RIGHT = 2;
 
     public static int MAIN_LIST_SCREEN = 0;
     public static int DETAILS_SCREEN = 1;
@@ -77,20 +81,45 @@ public class MainFragmentHolder extends AppCompatActivity {
 
     public static void showScreen(int fragmentId) {
         if (fragmentId != actualScreen) {
-            actualScreen = fragmentId;
             if (fragmentId == MAIN_LIST_SCREEN) {
                 //instance.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                changeFragment(new PokemonListFragment());
+                changeFragment(new PokemonListFragment(), ENTER_LEFT);
             } else {
-                changeFragment(new PokemonDetailsFragment());
+                changeFragment(new PokemonDetailsFragment(), ENTER_RIGHT);
             }
+            actualScreen = fragmentId;
         }
     }
 
-    private static void changeFragment(Fragment fragment) {
-        fragmentManager.beginTransaction()
+    private static void changeFragment(Fragment fragment, int type) {
+        /*fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
+                */
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if (type == ENTER_LEFT) {
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+        } else {
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+        }
+
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.disallowAddToBackStack();
+        fragmentTransaction.commitNow();
+
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (actualScreen == DETAILS_SCREEN) {
+            showScreen(MAIN_LIST_SCREEN);
+        } else if (actualScreen == MAIN_LIST_SCREEN){
+            actualScreen = -1;
+            super.onBackPressed();
+        }
+
     }
 
     static class InternetHandler extends Handler {

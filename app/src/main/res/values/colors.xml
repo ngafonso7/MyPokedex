@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="color_background_pokeder_red">#FB0505</color>
+    <color name="color_font_dark_green">#00520E</color>
 </resources>

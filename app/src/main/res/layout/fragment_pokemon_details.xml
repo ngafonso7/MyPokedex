@@ -22,7 +22,6 @@
         android:layout_height="96dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="135dp"
-        android:background="@drawable/dark_green_border"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/loading_pokeball_08" />
@@ -32,10 +31,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/dark_green_border"
         android:paddingEnd="2dp"
         android:paddingStart="2dp"
+        android:textColor="@color/color_font_dark_green"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_label_pokemon_name"
         app:layout_constraintTop_toTopOf="@+id/tv_label_pokemon_name"
@@ -47,10 +46,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="134dp"
-        android:background="@drawable/dark_green_border"
         android:paddingEnd="2dp"
         android:paddingStart="2dp"
         android:text="@string/label_pokemon_details_name"
+        android:textColor="@color/color_font_dark_green"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/im_pokemon_details_image"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Name:" />
@@ -60,20 +60,22 @@
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:paddingEnd="2dp"
+        android:paddingStart="2dp"
+        android:text="@string/label_pokemon_details_weight"
+        android:textColor="@color/color_font_dark_green"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tv_label_pokemon_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_label_pokemon_name"
-        tools:text="Weight :"
-        android:paddingStart="2dp"
-        android:paddingEnd="2dp"
-        android:text="@string/label_pokemon_details_weight"
-        android:background="@drawable/dark_green_border"/>
+        tools:text="Weight :" />
 
     <TextView
         android:id="@+id/tv_pokemon_weight"
-        android:layout_width="60dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/dark_green_border"
+        android:textStyle="bold"
+        android:textColor="@color/color_font_dark_green"
         android:paddingEnd="2dp"
         android:paddingStart="2dp"
         app:layout_constraintStart_toStartOf="@+id/tv_pokemon_name"
@@ -83,9 +85,10 @@
 
     <ImageView
         android:id="@+id/im_pokemon_weight"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginStart="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_pokemon_weight"
         app:layout_constraintStart_toEndOf="@+id/tv_pokemon_weight"
         app:layout_constraintTop_toTopOf="@+id/tv_pokemon_weight"
@@ -96,20 +99,22 @@
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:paddingEnd="2dp"
+        android:paddingStart="2dp"
+        android:text="@string/label_pokemon_details_baseexp"
+        android:textColor="@color/color_font_dark_green"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tv_label_pokemon_weight"
         app:layout_constraintTop_toBottomOf="@+id/tv_label_pokemon_weight"
-        tools:text="Base Exp:"
-        android:paddingStart="2dp"
-        android:paddingEnd="2dp"
-        android:text="@string/label_pokemon_details_baseexp"
-        android:background="@drawable/dark_green_border"/>
+        tools:text="Base Exp:" />
 
     <TextView
         android:id="@+id/tv_pokemon_baseexp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/dark_green_border"
+        android:textStyle="bold"
+        android:textColor="@color/color_font_dark_green"
         android:paddingEnd="2dp"
         android:paddingStart="2dp"
         app:layout_constraintEnd_toEndOf="@+id/tv_pokemon_name"
@@ -122,13 +127,14 @@
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:paddingEnd="2dp"
+        android:paddingStart="2dp"
+        android:text="@string/label_pokemon_details_type"
+        android:textColor="@color/color_font_dark_green"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tv_label_pokemon_baseexp"
         app:layout_constraintTop_toBottomOf="@+id/tv_label_pokemon_baseexp"
-        tools:text="Type :"
-        android:paddingStart="2dp"
-        android:paddingEnd="2dp"
-        android:text="@string/label_pokemon_details_type"
-        android:background="@drawable/dark_green_border"/>
+        tools:text="Type :" />
 
     <TextView
         android:id="@+id/tv_pokemon_type"
@@ -141,93 +147,113 @@
         tools:text="Poison"
         android:paddingStart="2dp"
         android:paddingEnd="2dp"
-        android:background="@drawable/dark_green_border"/>
+        android:textStyle="bold"
+        android:textColor="@color/color_font_dark_green"/>
 
     <TextView
         android:id="@+id/tv_label_pokemon_stats"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/dark_green_border"
+        android:textStyle="bold"
+        android:textColor="@color/color_font_dark_green"
         android:paddingEnd="2dp"
         android:paddingStart="2dp"
         android:paddingTop="1dp"
-        android:paddingBottom="1dp"
         android:text="@string/label_pokemon_details_stats"
         app:layout_constraintStart_toStartOf="@+id/im_pokemon_details_image"
         app:layout_constraintTop_toBottomOf="@+id/im_pokemon_details_image"
         tools:text="@string/label_pokemon_details_stats" />
 
-    <TextView
-        android:id="@+id/tv_pokemon_stats"
+    <ScrollView
+        android:id="@+id/sv_pokemon_stats"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="6dp"
+        android:layout_height="65dp"
         android:background="@drawable/dark_green_border"
+        android:layout_marginEnd="25dp"
         android:paddingEnd="2dp"
         android:paddingStart="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_label_pokemon_stats"
         app:layout_constraintTop_toBottomOf="@+id/tv_label_pokemon_stats"
-        android:nestedScrollingEnabled="true"
-        tools:text="Strike..." />
+        android:fadeScrollbars="false">
+        <TextView
+            android:id="@+id/tv_pokemon_stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Strike..." />
+    </ScrollView>
+
 
     <TextView
         android:id="@+id/tv_label_pokemon_abilities"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_pokemon_stats"
-        app:layout_constraintTop_toBottomOf="@+id/tv_pokemon_stats"
+        app:layout_constraintStart_toStartOf="@+id/sv_pokemon_stats"
+        app:layout_constraintTop_toBottomOf="@+id/sv_pokemon_stats"
         tools:text="@string/label_pokemon_details_abilities"
         android:paddingStart="2dp"
         android:paddingEnd="2dp"
         android:paddingTop="1dp"
         android:paddingBottom="1dp"
         android:text="@string/label_pokemon_details_abilities"
-        android:background="@drawable/dark_green_border"/>
+        android:textStyle="bold"
+        android:textColor="@color/color_font_dark_green"/>
 
-    <TextView
-        android:id="@+id/tv_pokemon_abilities"
+    <ScrollView
+        android:id="@+id/sv_pokemon_abilities"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="6dp"
+        android:layout_height="65dp"
         android:background="@drawable/dark_green_border"
         android:paddingEnd="2dp"
         android:paddingStart="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_pokemon_stats"
+        app:layout_constraintEnd_toEndOf="@+id/sv_pokemon_stats"
         app:layout_constraintStart_toStartOf="@+id/tv_label_pokemon_abilities"
         app:layout_constraintTop_toBottomOf="@+id/tv_label_pokemon_abilities"
-        tools:text="abilities..." />
+        android:fadeScrollbars="false">
+        <TextView
+            android:id="@+id/tv_pokemon_abilities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="abilities..." />
+    </ScrollView>
+
 
     <TextView
         android:id="@+id/tv_label_pokemon_moves"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_pokemon_abilities"
-        app:layout_constraintTop_toBottomOf="@+id/tv_pokemon_abilities"
+        app:layout_constraintStart_toStartOf="@+id/sv_pokemon_abilities"
+        app:layout_constraintTop_toBottomOf="@+id/sv_pokemon_abilities"
         tools:text="@string/label_pokemon_details_moves"
         android:paddingStart="2dp"
         android:paddingEnd="2dp"
         android:paddingTop="1dp"
         android:paddingBottom="1dp"
         android:text="@string/label_pokemon_details_moves"
-        android:background="@drawable/dark_green_border"/>
+        android:textStyle="bold"
+        android:textColor="@color/color_font_dark_green"/>
 
-    <TextView
-        android:id="@+id/tv_pokemon_moves"
+    <ScrollView
+        android:id="@+id/sv_pokemon_moves"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="6dp"
+        android:layout_height="65dp"
         android:background="@drawable/dark_green_border"
         android:paddingEnd="2dp"
         android:paddingStart="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_pokemon_abilities"
+        app:layout_constraintEnd_toEndOf="@+id/sv_pokemon_abilities"
         app:layout_constraintStart_toStartOf="@+id/tv_label_pokemon_moves"
         app:layout_constraintTop_toBottomOf="@+id/tv_label_pokemon_moves"
-        tools:text="moves..." />
+        android:fadeScrollbars="false">
+        <TextView
+            android:id="@+id/tv_pokemon_moves"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="moves..." />
+    </ScrollView>
+
 
 
 </android.support.constraint.ConstraintLayout>

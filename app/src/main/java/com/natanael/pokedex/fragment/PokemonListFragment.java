@@ -68,10 +68,12 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
 
         pbLoading = rootView.findViewById(R.id.pb_loading);
 
-        if (NetworkUtils.isInternetConnected(context)) {
-            updatePokemonList();
-        } else {
-            showMessage(R.string.no_internet_connection_error_message,Snackbar.LENGTH_INDEFINITE);
+        if (pokemonListInstance.getPokemonDetailsList().size() == 0) {
+            if (NetworkUtils.isInternetConnected(context)) {
+                updatePokemonList();
+            } else {
+                showMessage(R.string.no_internet_connection_error_message, Snackbar.LENGTH_INDEFINITE);
+            }
         }
         return rootView;
 
@@ -104,7 +106,7 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
 
     @Override
     public void onListItemClick(Pokemon clickedPokemon) {
-        if(clickedPokemon.isLoaded()) {
+        if(clickedPokemon.isLoaded() && !isLoading) {
             //Open details screen
             pokemonListInstance.setSelectedPokemon(
                     pokemonListInstance.getPokemonListIndex(clickedPokemon.getId()));
