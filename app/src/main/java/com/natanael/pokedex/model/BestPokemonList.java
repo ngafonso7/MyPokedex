@@ -28,9 +28,9 @@ public class BestPokemonList {
             int stat = getStatValue(ATTACK_STAT_NAME, pokemon);
             int stat1 = getStatValue(ATTACK_STAT_NAME, t1);
             if (stat > stat1) {
-                return 0;
-            } else if (stat1 > stat) {
                 return -1;
+            } else if (stat1 > stat) {
+                return 1;
             }
             return 0;
         }
@@ -61,18 +61,30 @@ public class BestPokemonList {
         return bestPokemonBaseExpSum;
     }
 
-    public List<String> getBestPokemonStatsSum() {
-        return bestPokemonStatsSum;
+    public String getBestPokemonStatsSum() {
+        String ret = "";
+        for (String stat : bestPokemonStatsSum) {
+            ret += stat + "\n";
+        }
+        return ret;
+    }
+
+    public void clearBestPokemonList() {
+        bestPokemonList.clear();
+        bestPokemonWeightSum = 0;
+        bestPokemonBaseExpSum = 0;
+        bestPokemonStatsSum.clear();
     }
 
     public void calculateBestPokemonList(List<Pokemon> caughtPokemonList) {
-        bestPokemonList = caughtPokemonList;
+        bestPokemonList.clear();
         if (caughtPokemonList != null && caughtPokemonList.size() > MAX_BEST_POKEMON_LIST_SIZE) {
-            bestPokemonList.clear();
             caughtPokemonList.sort(attackStatSorter);
             for (int index=0; index < MAX_BEST_POKEMON_LIST_SIZE; index++) {
                 bestPokemonList.add(caughtPokemonList.get(index));
             }
+        } else {
+            bestPokemonList.addAll(caughtPokemonList);
         }
         bestPokemonList.sort(attackStatSorter);
 
@@ -80,12 +92,12 @@ public class BestPokemonList {
     }
 
     private void calculateSums(List<Pokemon> bestPokemonList) {
-        this.bestPokemonWeightSum = 0;
-        this.bestPokemonBaseExpSum = 0;
+        bestPokemonWeightSum = 0;
+        bestPokemonBaseExpSum = 0;
 
         for(Pokemon pokemon : bestPokemonList) {
-            this.bestPokemonWeightSum += pokemon.getWeight();
-            this.bestPokemonBaseExpSum += pokemon.getBaseExperience();
+            bestPokemonWeightSum += pokemon.getWeight();
+            bestPokemonBaseExpSum += pokemon.getBaseExperience();
         }
 
         calculateAllStatsSum(bestPokemonList);

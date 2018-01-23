@@ -26,6 +26,7 @@ import com.natanael.pokedex.model.PokemonUrl;
 import com.natanael.pokedex.model.PokemonUrlList;
 import com.natanael.pokedex.utils.EndlessRecyclerViewScrollListener;
 import com.natanael.pokedex.utils.NetworkUtils;
+import com.natanael.pokedex.utils.PreferenceManager;
 import com.natanael.pokedex.utils.Utils;
 
 public class PokemonListFragment extends Fragment implements LoadPokemonDetailsCallback,
@@ -131,6 +132,10 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
     @Override
     public void onPokemonDetailsRefresh(Pokemon pokemonDetails) {
         if (pokemonDetails != null) {
+            if (PreferenceManager.getInstance().isPokemonIdStored(pokemonDetails.getId())) {
+                pokemonDetails.setCaught(true);
+                PokemonList.getInstance().setCaughtPokemon(pokemonDetails);
+            }
             int listIndex = pokemonListInstance.getPokemonListIndex(pokemonDetails.getId());
             pokemonListInstance.setPokemonDetailsAtIndex(pokemonDetails, listIndex);
             pokemonListAdapter.notifyDataSetChanged();

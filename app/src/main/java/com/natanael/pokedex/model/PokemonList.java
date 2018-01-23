@@ -1,5 +1,7 @@
 package com.natanael.pokedex.model;
 
+import com.natanael.pokedex.utils.PreferenceManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +66,8 @@ public class PokemonList {
             }
         }
         getInstance().pokemonCaughtList.add((addPokemon));
-        BestPokemonList.getInstance().calculateBestPokemonList(pokemonCaughtList);
+        BestPokemonList.getInstance().calculateBestPokemonList(getInstance().pokemonCaughtList);
+        PreferenceManager.getInstance().storePokemonCaughtId(addPokemon.getId());
     }
 
     public void removeCaughtPokemon(int pokemonId) {
@@ -76,6 +79,10 @@ public class PokemonList {
             index++;
         }
         getInstance().pokemonCaughtList.remove(index);
+        BestPokemonList.getInstance().clearBestPokemonList();
+        PreferenceManager.getInstance().removePokemonCaughtId(pokemonId);
+
+
     }
 
     public void setSelectedPokemon(int index) {

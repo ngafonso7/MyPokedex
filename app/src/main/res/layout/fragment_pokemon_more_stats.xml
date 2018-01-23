@@ -16,8 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/tv_label_best_pokemon_list"
@@ -29,18 +28,19 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/label_best_pokemon_list"
         tools:text="Best caught Pokemóns: " />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_best_pokemon_list"
         android:layout_width="0dp"
-        android:layout_height="228dp"
+        android:layout_height="220dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="10dp"
+        android:background="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_label_best_pokemon_list"
-        app:layout_constraintTop_toBottomOf="@+id/tv_label_best_pokemon_list"
-        android:background="@android:color/white"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_best_pokemon_list" />
 
     <TextView
         android:id="@+id/tv_label_stats_sum"
@@ -51,6 +51,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/rv_best_pokemon_list"
         app:layout_constraintTop_toBottomOf="@+id/rv_best_pokemon_list"
+        android:text="@string/label_best_pokemon_stats_sum"
         tools:text="Stats Sum: " />
 
     <TextView
@@ -63,6 +64,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_label_stats_sum"
         app:layout_constraintTop_toBottomOf="@+id/rv_best_pokemon_list"
+        android:text="@string/label_best_pokemon_weight_sum"
         tools:text="Weight Sum:" />
 
     <ScrollView
@@ -102,16 +104,17 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_weight_sum"
         android:textColor="@color/color_font_dark_green"
         android:textStyle="bold"
+        android:text="@string/label_best_pokemon_baseexp_sum"
         tools:text="Base Exp Sum:" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tv_baseexp_sum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_label_baseexp_sum"
-        app:layout_constraintTop_toBottomOf="@+id/tv_label_baseexp_sum"
         android:textColor="@color/color_font_dark_green"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_label_baseexp_sum"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_baseexp_sum"
         tools:text="1500" />
 </android.support.constraint.ConstraintLayout>

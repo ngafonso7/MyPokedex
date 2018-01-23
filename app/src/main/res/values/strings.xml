@@ -9,6 +9,10 @@
     <string name="label_pokemon_details_abilities">Abilities :</string>
     <string name="label_pokemon_details_moves">Moves :</string>
 
+    <string name="label_best_pokemon_list">Best Caught Pokemons: </string>
+    <string name="label_best_pokemon_stats_sum">Stats Sum: </string>
+    <string name="label_best_pokemon_weight_sum">Weight Sum: </string>
+    <string name="label_best_pokemon_baseexp_sum">Base Exp Sum: </string>
     <string name="dummy_pokemon_name">Loading...</string>
 
     <string name="refresh_pokemon_details_error">Error while refreshing Pokemon list !</string>

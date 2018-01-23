@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/im_best_pokemon_image"
         android:layout_width="130dp"
-        android:layout_height="96dp"
+        android:layout_height="76dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="1dp"
         android:paddingStart="17dp"
@@ -21,7 +21,7 @@
         android:id="@+id/tv_best_pokemon_name"
         android:layout_width="130dp"
         android:layout_height="20dp"
-        android:layout_below="@id/im_pokemon_image"
+        android:layout_below="@id/im_best_pokemon_image"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="2dp"
         android:layout_marginEnd="2dp"
