@@ -1,13 +1,19 @@
 package com.natanael.pokedex;
 
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
+import com.natanael.pokedex.fragment.PokemonDetailsFragment;
 import com.natanael.pokedex.fragment.PokemonListFragment;
+import com.natanael.pokedex.receiver.InternetReceiver;
 
 public class MainFragmentHolder extends AppCompatActivity {
 
@@ -20,6 +26,8 @@ public class MainFragmentHolder extends AppCompatActivity {
     private static FragmentManager fragmentManager;
 
     private Snackbar snackbar;
+
+    private InternetReceiver internetReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,17 @@ public class MainFragmentHolder extends AppCompatActivity {
         snackbar = Snackbar.make(layout, "", Snackbar.LENGTH_SHORT);
 
         showScreen(MAIN_LIST_SCREEN);
+
+        Handler internetHandler = new InternetHandler();
+
+        internetReceiver = new InternetReceiver(internetHandler);
+        this.registerReceiver(internetReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onDestroy() {
+        this.unregisterReceiver(internetReceiver);
+        super.onDestroy();
     }
 
     public static MainFragmentHolder getInstance() {
@@ -57,10 +76,14 @@ public class MainFragmentHolder extends AppCompatActivity {
     }
 
     public static void showScreen(int fragmentId) {
-        actualScreen = fragmentId;
-        if (fragmentId == MAIN_LIST_SCREEN) {
-            //instance.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            changeFragment(new PokemonListFragment());
+        if (fragmentId != actualScreen) {
+            actualScreen = fragmentId;
+            if (fragmentId == MAIN_LIST_SCREEN) {
+                //instance.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                changeFragment(new PokemonListFragment());
+            } else {
+                changeFragment(new PokemonDetailsFragment());
+            }
         }
     }
 
@@ -69,4 +92,18 @@ public class MainFragmentHolder extends AppCompatActivity {
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
+
+    static class InternetHandler extends Handler {
+        @Override
+        public void handleMessage (Message msg) {
+            if(msg.what == InternetReceiver.INTERNET_CONNECTED) {
+                if (getInstance().snackbar != null) {
+                    getInstance().snackbar.dismiss();
+                }
+            } else if(msg.what == InternetReceiver.INTERNET_DISCONNECTED) {
+                getInstance().showMessage(R.string.no_internet_connection_error_message, Snackbar.LENGTH_INDEFINITE);
+            }
+        }
+    }
+
 }

@@ -1,8 +1,16 @@
 <resources>
     <string name="app_name">PokeDex</string>
 
+    <string name="label_pokemon_details_name">Name :</string>
+    <string name="label_pokemon_details_weight">Weight :</string>
+    <string name="label_pokemon_details_baseexp">Base Exp :</string>
+    <string name="label_pokemon_details_type">Type :</string>
+    <string name="label_pokemon_details_stats">Stats :</string>
+    <string name="label_pokemon_details_abilities">Abilities :</string>
+    <string name="label_pokemon_details_moves">Moves :</string>
+
     <string name="dummy_pokemon_name">Loading...</string>
 
     <string name="refresh_pokemon_details_error">Error while refreshing Pokemon list !</string>
-    <string name="no_internet_connection_error_message">Internet is not available</string>
+    <string name="no_internet_connection_error_message">Internet is not available !</string>
 </resources>

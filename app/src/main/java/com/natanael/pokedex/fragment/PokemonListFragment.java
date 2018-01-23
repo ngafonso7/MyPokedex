@@ -28,10 +28,14 @@ import com.natanael.pokedex.utils.Utils;
 public class PokemonListFragment extends Fragment implements LoadPokemonDetailsCallback,
         LoadPokemonListCallback, PokemonListAdapter.ListItemClickListener {
 
+    private static PokemonListFragment instance;
+
     private PokemonList pokemonListInstance;
     private PokemonListAdapter pokemonListAdapter;
 
     private ProgressBar pbLoading;
+
+    private boolean isLoading = false;
 
     private Context context;
 
@@ -39,6 +43,13 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
 
     public PokemonListFragment() {
         pokemonListInstance = PokemonList.getInstance();
+    }
+
+    public static PokemonListFragment getInstance() {
+        if (instance == null) {
+            instance = new PokemonListFragment();
+        }
+        return instance;
     }
 
     @Override
@@ -55,20 +66,23 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
         pokemonListView.setLayoutManager(getLayoutManager());
         pokemonListView.setAdapter(pokemonListAdapter);
 
+        pbLoading = rootView.findViewById(R.id.pb_loading);
+
         if (NetworkUtils.isInternetConnected(context)) {
-
-            NetworkUtils.getInstance().getPokemonList(loadingPage, this);
-
-            pbLoading = rootView.findViewById(R.id.pb_loading);
-            pbLoading.setVisibility(View.VISIBLE);
+            updatePokemonList();
         } else {
             showMessage(R.string.no_internet_connection_error_message,Snackbar.LENGTH_INDEFINITE);
         }
-
-
-
         return rootView;
 
+    }
+
+    public void updatePokemonList() {
+        if (!isLoading) {
+            isLoading = true;
+            pbLoading.setVisibility(View.VISIBLE);
+            NetworkUtils.getInstance().getPokemonList(loadingPage, this);
+        }
     }
 
     @Override
@@ -82,6 +96,7 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
 
     @Override
     public void notifyPokemonDetailsRefreshFailure() {
+        isLoading = false;
         pbLoading.setVisibility(View.INVISIBLE);
         showMessage(R.string.refresh_pokemon_details_error,Snackbar.LENGTH_LONG);
 
@@ -91,17 +106,23 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
     public void onListItemClick(Pokemon clickedPokemon) {
         if(clickedPokemon.isLoaded()) {
             //Open details screen
+            pokemonListInstance.setSelectedPokemon(
+                    pokemonListInstance.getPokemonListIndex(clickedPokemon.getId()));
+            MainFragmentHolder.showScreen(MainFragmentHolder.DETAILS_SCREEN);
         }
     }
 
     @Override
     public void onPokemonUrlListRefresh(PokemonUrlList pokemonUrlList) {
+        isLoading = false;
         int pokemonListIndex = 0;
         for (PokemonUrl pokemonUrl : pokemonUrlList.getDetailsUrls()) {
             int pokemonId = Utils.getPokemonIdFromUrl(pokemonUrl.getUrl());
-            Pokemon dummyPokemonEntry = new Pokemon(getString(R.string.dummy_pokemon_name));
-            pokemonListInstance.addPokemonIdToList(pokemonId);
-            pokemonListInstance.addPokemonDetails(dummyPokemonEntry);
+            if (pokemonListInstance.getPokemonListIndex(pokemonId) == -1) {
+                Pokemon dummyPokemonEntry = new Pokemon(getString(R.string.dummy_pokemon_name));
+                pokemonListInstance.addPokemonIdToList(pokemonId);
+                pokemonListInstance.addPokemonDetails(dummyPokemonEntry);
+            }
             NetworkUtils.getInstance().getPokemonDetails(pokemonId,this);
             pokemonListIndex++;
             if (pokemonListIndex == 5) {
@@ -115,14 +136,13 @@ public class PokemonListFragment extends Fragment implements LoadPokemonDetailsC
 
     @Override
     public void notifyPokemonUrlListRefreshFailure() {
+        isLoading = false;
         pbLoading.setVisibility(View.INVISIBLE);
         showMessage(R.string.refresh_pokemon_details_error,Snackbar.LENGTH_LONG);
     }
 
     private GridLayoutManager getLayoutManager(){
-        GridLayoutManager layoutManager = new GridLayoutManager(context, getNumberOfColums(context));
-
-        return layoutManager;
+        return new GridLayoutManager(context, getNumberOfColums(context));
     }
 
     private static int getNumberOfColums(Context context) {

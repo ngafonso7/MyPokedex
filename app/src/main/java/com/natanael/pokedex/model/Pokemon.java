@@ -29,11 +29,21 @@ public class Pokemon {
     }
 
     public String getName() {
-        return name;
+        String res = name;
+        res = res.substring(0,1).toUpperCase() + res.substring(1,res.length());
+        return res;
     }
 
-    public List<Stat> getStats() {
-        return stats;
+    public String getStats() {
+        String res = "";
+
+        for (Stat s : stats) {
+            String stat = s.getStatName().replace("-"," ");
+            stat = stat.substring(0,1).toUpperCase() + stat.substring(1,stat.length());
+            res += stat + " - " + s.getBaseStat() +"\n";
+        }
+
+        return res;
     }
 
     public int getBaseExperience() {
@@ -44,16 +54,39 @@ public class Pokemon {
         return weight;
     }
 
-    public List<Ability> getAbilities() {
-        return abilities;
+    public String getAbilities() {
+        String res = "";
+        if (abilities == null) return res;
+        for (Ability a : abilities) {
+            String ability = a.getAbilityName();
+            ability += ability.substring(0,1).toUpperCase() + ability.substring(1,ability.length());
+            res += ability + "\n";
+        }
+        return res;
     }
 
-    public List<Move> getMoves() {
-        return moves;
+    public String getMoves() {
+        String res = "";
+
+        for (Move m : moves) {
+            String move = m.getMoveName().replace("-"," ");
+            move = move.substring(0,1).toUpperCase() + move.substring(1,move.length());
+            res += move + "\n";
+        }
+
+        return res;
     }
 
-    public List<Type> getTypes() {
-        return types;
+    public String getTypes() {
+        String res = "";
+        if (types == null) return res;
+        for (Type type : types) {
+            String typ = type.getTypeName();
+            typ = typ.substring(0,1).toUpperCase() + typ.substring(1,typ.length());
+            res += typ + " - ";
+        }
+        res = res.substring(0,res.length() - 3);
+        return res;
     }
 
     public boolean isLoaded() {
@@ -87,17 +120,18 @@ public class Pokemon {
 
     class Stat {
         private int base_stat;
-        private StatName name;
+        private StatName stat;
 
         public int getBaseStat() {
             return this.base_stat;
         }
 
         public String getStatName() {
-            return this.name.name;
+            return stat.name;
         }
 
         class StatName {
+            private String url;
             private String name;
         }
     }

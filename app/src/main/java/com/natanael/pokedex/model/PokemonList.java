@@ -13,6 +13,7 @@ public class PokemonList {
     private static PokemonList instance;
     private List<Pokemon> pokemonDetailsList;
     private int pokemonCount;
+    private int selectedPokemonIndex = -1;
 
     private HashMap<Integer, Integer> mapPokemonIdtoListIndex = new HashMap<>();
 
@@ -44,11 +45,22 @@ public class PokemonList {
     }
 
     public int getPokemonListIndex(int pokemonId) {
-        return mapPokemonIdtoListIndex.get(pokemonId);
+        if (mapPokemonIdtoListIndex.containsKey(pokemonId)) {
+            return mapPokemonIdtoListIndex.get(pokemonId);
+        }
+        return -1;
     }
 
     public List<Pokemon> getPokemonDetailsList() {
         return getInstance().pokemonDetailsList;
+    }
+
+    public void setSelectedPokemon(int index) {
+        selectedPokemonIndex = index;
+    }
+
+    public Pokemon getSelectedPokemon() {
+        return pokemonDetailsList.get(selectedPokemonIndex);
     }
 
     public int getPokemonCount() {
